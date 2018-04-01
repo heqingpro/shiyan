@@ -20,6 +20,8 @@ public interface StudentDao {
     int updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
+
+    int addStudent(Student student);
     
     //分页查询学生信息
     List<Student> findByPaging(PagingVO pagingVO) throws Exception; 

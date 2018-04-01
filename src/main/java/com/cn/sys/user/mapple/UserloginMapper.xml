@@ -99,10 +99,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cn.sys.user.pojo.Userlogin" >
-    insert into tb_userlogin (userID, userName, password, 
-      role)
-    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{role,jdbcType=INTEGER})
+    insert into tb_userlogin (userName, password, role)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.cn.sys.user.pojo.Userlogin" >
     insert into tb_userlogin

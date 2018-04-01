@@ -10,6 +10,8 @@ public interface StudentService {
 	public int delectByName(String name);
 	public void regist(Student student);
 	public boolean login(Student student);
+
+	public int save(Student student);
 	
 	List<Student> findByPaging(Integer toPageNo) throws Exception;
     //获取学生总数

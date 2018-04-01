@@ -48,12 +48,10 @@
     delete from tb_student
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cn.sys.user.pojo.Student">
-    insert into tb_student (name, id, password, 
-      number, school, stu_class
+  <insert id="addStudent" parameterType="com.cn.sys.user.pojo.Student">
+    insert into tb_student (name,password, number, school, stu_class
       )
-    values (#{name,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, 
-      #{number,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{stuClass,jdbcType=VARCHAR}
+    values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},  #{number,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{stuClass,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cn.sys.user.pojo.Student">

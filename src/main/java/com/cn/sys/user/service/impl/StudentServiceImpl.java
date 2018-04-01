@@ -79,4 +79,9 @@ public class StudentServiceImpl implements StudentService {
     	this.studentDao.deleteById(id);
     }
 
+    @Override
+    public int save(Student student){
+	    return studentDao.addStudent(student);
+    }
+
 }

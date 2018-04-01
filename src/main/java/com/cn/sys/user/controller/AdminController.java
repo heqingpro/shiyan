@@ -3,9 +3,11 @@ package com.cn.sys.user.controller;
 import java.util.List;
 
 import javax.annotation.Resource;  
-import javax.servlet.http.HttpServletRequest;  
+import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.stereotype.Controller;  
+import com.cn.sys.user.pojo.Userlogin;
+import com.cn.sys.user.service.UserloginService;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;  
 import org.springframework.web.bind.annotation.RequestMapping;  
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +23,9 @@ import com.cn.sys.user.exception.*;
 public class AdminController {
 	@Resource
     private StudentService studentService;
+
+	@Resource
+    private UserloginService userloginService;
 
     //@Resource(name = "teacherServiceImpl")
     //private TeacherService teacherService;
@@ -70,26 +75,27 @@ public class AdminController {
         return "admin/addStudent";
     }
 
-    /*  // 添加学生信息操作
+      // 添加学生信息操作
     @RequestMapping(value = "/addStudent", method = {RequestMethod.POST})
-    public String addStudent(StudentCustom studentCustom, Model model) throws Exception {
+    public String addStudent(Student student, Model model) throws Exception {
+        System.out.print("收到学生的姓名"+student.getName());
+        int result = studentService.save(student);
 
-        Boolean result = studentService.save(studentCustom);
-
-        if (!result) {
+        if (result==0) {
             model.addAttribute("message", "学号重复");
             return "error";
         }
         //添加成功后，也添加到登录表
         Userlogin userlogin = new Userlogin();
-        userlogin.setUsername(studentCustom.getUserid().toString());
-        userlogin.setPassword("123");
+        userlogin.setUsername(student.getName());
+        userlogin.setPassword(student.getPassword());
         userlogin.setRole(2);
+        System.out.print("姓名："+student.getName()+"密码："+student.getPassword()+"角色："+userlogin.getRole());
         userloginService.save(userlogin);
 
         //重定向
         return "redirect:/admin/showStudent";
-    } */
+    }
 
     // 修改学生信息页面显示
     @RequestMapping(value = "/editStudent", method = {RequestMethod.GET})
