@@ -49,31 +49,25 @@
 				    <table class="table table-bordered">
 					        <thead>
 					            <tr>
-									<th>教师编号</th>
+									<th>id</th>
 									<th>姓名</th>
-									<th>性别</th>
-									<th>出生年份</th>
-									<th>学历</th>
-									<th>职称</th>
-									<th>入职年份</th>
+									<th>密码</th>
 									<th>学院</th>
+									<th>职工号</th>
 									<th>操作</th>
 					            </tr>
 					        </thead>
 					        <tbody>
 							<c:forEach  items="${teacherList}" var="item">
 								<tr>
-									<td>${item.userid}</td>
-									<td>${item.username}</td>
-									<td>${item.sex}</td>
-									<td><fmt:formatDate value="${item.birthyear}" dateStyle="medium" /></td>
-									<td>${item.degree}</td>
-									<td>${item.title}</td>
-									<td><fmt:formatDate value="${item.grade}" dateStyle="medium" /></td>
-									<td>${item.collegeName}</td>
+									<td>${item.id}</td>
+									<td>${item.name}</td>
+									<td>${item.password}</td>
+									<td>${item.school}</td>
+									<td>${item.number}</td>
 									<td>
-										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/admin/editTeacher?id=${item.userid}'">修改</button>
-										<button class="btn btn-default btn-xs btn-danger btn-primary" onClick="location.href='/admin/removeTeacher?id=${item.userid}'">删除</button>
+										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/admin/editTeacher?id=${item.id}'">修改</button>
+										<button class="btn btn-default btn-xs btn-danger btn-primary" onClick="location.href='/admin/removeTeacher?id=${item.id}'">删除</button>
 										<!--弹出框-->
 									</td>
 								</tr>
@@ -115,17 +109,6 @@
 	</div>
 </body>
 	<script type="text/javascript">
-		$("#nav li:nth-child(3)").addClass("active")
-
-        <c:if test="${pagingVO != null}">
-			if (${pagingVO.curentPageNo} == ${pagingVO.totalCount}) {
-				$(".pagination li:last-child").addClass("disabled")
-			};
-
-			if (${pagingVO.curentPageNo} == ${1}) {
-				$(".pagination li:nth-child(1)").addClass("disabled")
-			};
-        </c:if>
 
         function confirmd() {
             var msg = "您真的确定要删除吗？！";
@@ -136,8 +119,5 @@
             }
         }
 
-        $("#sub").click(function () {
-            $("#form1").submit();
-        });
 	</script>
 </html>

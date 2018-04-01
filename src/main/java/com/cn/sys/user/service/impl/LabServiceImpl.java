@@ -38,4 +38,40 @@ public class LabServiceImpl implements LabService {
         return list;
     }
 
+    @Override
+    public int save(Lab lab){
+	    return labDao.insert(lab);
+    }
+
+    @Override
+    public Lab selectById(Integer id) throws Exception{
+	    return labDao.selectById(id);
+    }
+
+    @Override
+    public int getCountLab() throws Exception{
+	    return labDao.getCountLab();
+    }
+
+    @Override
+    public List<Lab> findAll(){
+	    return labDao.findAll();
+    }
+
+    //根据id个更新学生信息
+    @Override
+    public void updateById(Integer id, Lab lab) throws Exception{
+	    labDao.updateById(lab);
+    }
+
+    @Override
+    public void removeById(Integer id) throws Exception{
+	    labDao.deleteById(id);
+    }
+
+    @Override
+    public List<Lab> selectByName(String name){
+	    return labDao.selectByName(name);
+    }
+
 }

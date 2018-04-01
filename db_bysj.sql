@@ -21,11 +21,11 @@ USE `db_bysj`;
 DROP TABLE IF EXISTS `tb_admin`;
 
 CREATE TABLE `tb_admin` (
-  `id` int(11) DEFAULT NULL,
-  `name` varchar(30) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT '',
   `password` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_admin` */
 
@@ -36,15 +36,15 @@ insert  into `tb_admin`(`id`,`name`,`password`) values (1,'root','123456');
 DROP TABLE IF EXISTS `tb_lab`;
 
 CREATE TABLE `tb_lab` (
-  `id` int(11) DEFAULT NULL,
-  `name` varchar(30) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT NULL,
   `number` varchar(30) DEFAULT NULL,
   `address` varchar(30) DEFAULT NULL,
   `major` varchar(30) DEFAULT NULL,
   `admin` varchar(30) DEFAULT NULL,
   `outline` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_lab` */
 
@@ -55,14 +55,14 @@ insert  into `tb_lab`(`id`,`name`,`number`,`address`,`major`,`admin`,`outline`) 
 DROP TABLE IF EXISTS `tb_labpre`;
 
 CREATE TABLE `tb_labpre` (
-  `id` int(11) DEFAULT NULL,
-  `stu_num` varchar(30) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stu_num` varchar(30) DEFAULT NULL,
   `lab_num` varchar(30) DEFAULT NULL,
   `lab_name` varchar(200) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `time` time DEFAULT NULL,
-  PRIMARY KEY (`stu_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_labpre` */
 

@@ -21,10 +21,13 @@
     delete from tb_teacher
     where name = #{name,jdbcType=VARCHAR}
   </delete>
+    <delete id="deleteById" parameterType="java.lang.Integer" >
+        delete from tb_teacher
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
   <insert id="insert" parameterType="com.cn.sys.user.pojo.Teacher" >
-    insert into tb_teacher (name, id, password, 
-      school, number)
-    values (#{name,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, 
+    insert into tb_teacher (name,password, school, number)
+    values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{school,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cn.sys.user.pojo.Teacher" >
@@ -64,6 +67,38 @@
       </if>
     </trim>
   </insert>
+  <select id="selectByNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_teacher
+    where number= #{number,jdbcType=VARCHAR}
+  </select>
+  <select id="findByPaging" parameterType="com.cn.sys.user.pojo.PagingVO" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_teacher
+    limit #{toPageNo}, #{pageSize}
+  </select>
+  <select id="countTeacher" resultType="java.lang.Integer">
+    select count(name)
+    from tb_teacher
+  </select>
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_teacher
+    where id= #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="addTeacher" parameterType="com.cn.sys.user.pojo.Teacher">
+    insert into tb_teacher (name,password, school,number)
+    values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},  #{school,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR} )
+  </insert>
+  <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from tb_teacher
+    where name like '%#{name,jdbcType=VARCHAR}%'
+  </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.cn.sys.user.pojo.Teacher" >
     update tb_teacher
     <set >
