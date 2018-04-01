@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.sys.user.dao.LabPreDao" >
+  <resultMap id="BaseResultMap" type="com.cn.sys.user.pojo.LabPre" >
+    <id column="stu_num" property="stuNum" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="lab_num" property="labNum" jdbcType="VARCHAR" />
+    <result column="lab_name" property="labName" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="time" property="time" jdbcType="TIME" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stu_num, id, lab_num, lab_name, date, time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_labpre
+    where stu_num = #{stuNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_labpre
+    where stu_num = #{stuNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.sys.user.pojo.LabPre" >
+    insert into tb_labpre (stu_num, id, lab_num, 
+      lab_name, date, time)
+    values (#{stuNum,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{labNum,jdbcType=VARCHAR}, 
+      #{labName,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{time,jdbcType=TIME})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.sys.user.pojo.LabPre" >
+    insert into tb_labpre
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuNum != null" >
+        stu_num,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="labNum != null" >
+        lab_num,
+      </if>
+      <if test="labName != null" >
+        lab_name,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuNum != null" >
+        #{stuNum,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="labNum != null" >
+        #{labNum,jdbcType=VARCHAR},
+      </if>
+      <if test="labName != null" >
+        #{labName,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIME},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.sys.user.pojo.LabPre" >
+    update tb_labpre
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="labNum != null" >
+        lab_num = #{labNum,jdbcType=VARCHAR},
+      </if>
+      <if test="labName != null" >
+        lab_name = #{labName,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIME},
+      </if>
+    </set>
+    where stu_num = #{stuNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.sys.user.pojo.LabPre" >
+    update tb_labpre
+    set id = #{id,jdbcType=INTEGER},
+      lab_num = #{labNum,jdbcType=VARCHAR},
+      lab_name = #{labName,jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE},
+      time = #{time,jdbcType=TIME}
+    where stu_num = #{stuNum,jdbcType=VARCHAR}
+  </update>
+</mapper>

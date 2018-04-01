@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.sys.user.dao.LabDao" >
+  <resultMap id="BaseResultMap" type="com.cn.sys.user.pojo.Lab" >
+    <id column="name" property="name" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="admin" property="admin" jdbcType="VARCHAR" />
+    <result column="outline" property="outline" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    name, id, number, address, major, admin, outline
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_lab
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="findByPaging" parameterType="com.cn.sys.user.pojo.PagingVO" resultType="com.cn.sys.user.pojo.Lab">
+        select 
+        <include refid="Base_Column_List" />
+        from tb_lab
+        limit #{toPageNo}, #{pageSize}
+   </select>
+  <select id="findByPagingTeacher" parameterType="com.cn.sys.user.pojo.PagingVO" resultType="com.cn.sys.user.pojo.Lab">
+        select 
+        <include refid="Base_Column_List" />
+        from tb_lab
+        <!--  where admin=#{TeacherName,VARCHAR}-->
+        limit #{toPageNo}, #{pageSize}
+  </select>
+  <select id="selectByNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from tb_lab
+    where number = #{number,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_lab
+    where name = #{name,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.sys.user.pojo.Lab" >
+    insert into tb_lab (name, id, number, 
+      address, major, admin, 
+      outline)
+    values (#{name,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{admin,jdbcType=VARCHAR}, 
+      #{outline,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.sys.user.pojo.Lab" >
+    insert into tb_lab
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="admin != null" >
+        admin,
+      </if>
+      <if test="outline != null" >
+        outline,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="admin != null" >
+        #{admin,jdbcType=VARCHAR},
+      </if>
+      <if test="outline != null" >
+        #{outline,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.sys.user.pojo.Lab" >
+    update tb_lab
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="admin != null" >
+        admin = #{admin,jdbcType=VARCHAR},
+      </if>
+      <if test="outline != null" >
+        outline = #{outline,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where name = #{name,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.sys.user.pojo.Lab" >
+    update tb_lab
+    set id = #{id,jdbcType=INTEGER},
+      number = #{number,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      admin = #{admin,jdbcType=VARCHAR},
+      outline = #{outline,jdbcType=VARCHAR}
+    where name = #{name,jdbcType=VARCHAR}
+  </update>
+</mapper>
