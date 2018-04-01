@@ -27,7 +27,7 @@ public class AdminController {
 
    // @Resource(name = "labServiceImpl")
     //private labService courseService;
-
+//////////////更新是否成功
 
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<学生操作>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
