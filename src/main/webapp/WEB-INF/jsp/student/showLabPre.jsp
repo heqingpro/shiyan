@@ -32,10 +32,10 @@
 				<div class="panel panel-default">
 				    <div class="panel-heading">
 						<div class="row">
-					    	<h1 class="col-md-5">实验列表</h1>
-							<form class="bs-example bs-example-form col-md-5" role="form" style="margin: 20px 0 10px 0;" action="/admin/selectCourse" id="form1" method="post">
+					    	<h1 class="col-md-5">已预约实验列表</h1>
+							<form class="bs-example bs-example-form col-md-5" role="form" style="margin: 20px 0 10px 0;" action="/admin/selectLabPre" id="form1" method="post">
 								<div class="input-group">
-									<input type="text" class="form-control" placeholder="请输入课程名" name="findByName">
+									<input type="text" class="form-control" placeholder="请输入实验" name="findByName">
 									<span class="input-group-addon btn" onclick="document.getElementById('form1').submit" id="sub">搜索</span>
 								</div>
 							</form>
@@ -45,30 +45,26 @@
 				    <table class="table table-bordered">
 					        <thead>
 					            <tr>
-									<th>课程号</th>
-									<th>课程名称</th>
-									<th>授课老师编号</th>
-									<th>上课时间</th>
-									<th>上课地点</th>
-									<th>周数</th>
-									<th>课程类型</th>
-									<th>学分</th>
+									<th>id</th>
+									<th>学号</th>
+									<th>实验编号</th>
+									<th>实验名称</th>
+									<th>实验日期</th>
+									<th>预约时间</th>
 									<th>操作</th>
 					            </tr>
 					        </thead>
 					        <tbody>
-							<c:forEach  items="${courseList}" var="item">
+							<c:forEach  items="${labPreList}" var="item">
 								<tr>
-									<td>${item.courseid}</td>
-									<td>${item.coursename}</td>
-									<td>${item.teacherid}</td>
-									<td>${item.coursetime}</td>
-									<td>${item.classroom}</td>
-									<td>${item.courseweek}</td>
-									<td>${item.coursetype}</td>
-									<td>${item.score}</td>
+									<td>${item.id}</td>
+									<td>${item.stuNum}</td>
+									<td>${item.labNum}</td>
+									<td>${item.labName}</td>
+									<td>${item.date}</td>
+									<td>${item.time}</td>
 									<td>
-										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/student/stuSelectedCourse?id=${item.courseid}'">选课</button>
+										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/student/removeLabPre?id=${item.id}'">取消预约</button>
 										<!--弹出框-->
 									</td>
 								</tr>
@@ -79,21 +75,21 @@
 						<c:if test="${pagingVO != null}">
 							<nav style="text-align: center">
 								<ul class="pagination">
-									<li><a href="/student/showCourse?page=${pagingVO.upPageNo}">&laquo;上一页</a></li>
+									<li><a href="/student/showLabPre?page=${pagingVO.upPageNo}">&laquo;上一页</a></li>
 									<li class="active"><a href="">${pagingVO.curentPageNo}</a></li>
 									<c:if test="${pagingVO.curentPageNo+1 <= pagingVO.totalCount}">
-										<li><a href="/student/showCourse?page=${pagingVO.curentPageNo+1}">${pagingVO.curentPageNo+1}</a></li>
+										<li><a href="/student/showLabPre?page=${pagingVO.curentPageNo+1}">${pagingVO.curentPageNo+1}</a></li>
 									</c:if>
 									<c:if test="${pagingVO.curentPageNo+2 <= pagingVO.totalCount}">
-										<li><a href="/student/showCourse?page=${pagingVO.curentPageNo+2}">${pagingVO.curentPageNo+2}</a></li>
+										<li><a href="/student/showLabPre?page=${pagingVO.curentPageNo+2}">${pagingVO.curentPageNo+2}</a></li>
 									</c:if>
 									<c:if test="${pagingVO.curentPageNo+3 <= pagingVO.totalCount}">
-										<li><a href="/student/showCourse?page=${pagingVO.curentPageNo+3}">${pagingVO.curentPageNo+3}</a></li>
+										<li><a href="/student/showLabPre?page=${pagingVO.curentPageNo+3}">${pagingVO.curentPageNo+3}</a></li>
 									</c:if>
 									<c:if test="${pagingVO.curentPageNo+4 <= pagingVO.totalCount}">
-										<li><a href="/student/showCourse?page=${pagingVO.curentPageNo+4}">${pagingVO.curentPageNo+4}</a></li>
+										<li><a href="/student/showLabPre?page=${pagingVO.curentPageNo+4}">${pagingVO.curentPageNo+4}</a></li>
 									</c:if>
-									<li><a href="/student/showCourse?page=${pagingVO.totalCount}">最后一页&raquo;</a></li>
+									<li><a href="/student/showLabPre?page=${pagingVO.totalCount}">最后一页&raquo;</a></li>
 								</ul>
 							</nav>
 						</c:if>
@@ -110,18 +106,6 @@
 	</div>
 </body>
 	<script type="text/javascript">
-		<%--设置菜单中--%>
-		$("#nav li:nth-child(1)").addClass("active")
-        <c:if test="${pagingVO != null}">
-        if (${pagingVO.curentPageNo} == ${pagingVO.totalCount}) {
-            $(".pagination li:last-child").addClass("disabled")
-        };
-
-        if (${pagingVO.curentPageNo} == ${1}) {
-            $(".pagination li:nth-child(1)").addClass("disabled")
-        };
-        </c:if>
-
         function confirmd() {
             var msg = "您真的确定要删除吗？！";
             if (confirm(msg)==true){
@@ -130,9 +114,5 @@
                 return false;
             }
         }
-
-        $("#sub").click(function () {
-            $("#form1").submit();
-        });
 	</script>
 </html>

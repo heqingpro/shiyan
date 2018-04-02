@@ -2,40 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cn.sys.user.dao.LabPreDao" >
   <resultMap id="BaseResultMap" type="com.cn.sys.user.pojo.LabPre" >
-    <id column="stu_num" property="stuNum" jdbcType="VARCHAR" />
-    <result column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stu_num" property="stuNum" jdbcType="VARCHAR" />
     <result column="lab_num" property="labNum" jdbcType="VARCHAR" />
     <result column="lab_name" property="labName" jdbcType="VARCHAR" />
     <result column="date" property="date" jdbcType="DATE" />
     <result column="time" property="time" jdbcType="TIME" />
   </resultMap>
   <sql id="Base_Column_List" >
-    stu_num, id, lab_num, lab_name, date, time
+    id, stu_num, lab_num, lab_name, date, time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="findByPaging" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_labpre
+    WHERE stu_num=#{number,jdbcType=VARCHAR}
+    limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_labpre
-    where stu_num = #{stuNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_labpre
-    where stu_num = #{stuNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cn.sys.user.pojo.LabPre" >
-    insert into tb_labpre (stu_num, id, lab_num, 
+    insert into tb_labpre (id, stu_num, lab_num, 
       lab_name, date, time)
-    values (#{stuNum,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{labNum,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{stuNum,jdbcType=VARCHAR}, #{labNum,jdbcType=VARCHAR}, 
       #{labName,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{time,jdbcType=TIME})
   </insert>
   <insert id="insertSelective" parameterType="com.cn.sys.user.pojo.LabPre" >
     insert into tb_labpre
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="stuNum != null" >
-        stu_num,
-      </if>
       <if test="id != null" >
         id,
+      </if>
+      <if test="stuNum != null" >
+        stu_num,
       </if>
       <if test="labNum != null" >
         lab_num,
@@ -51,11 +58,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="stuNum != null" >
-        #{stuNum,jdbcType=VARCHAR},
-      </if>
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stuNum != null" >
+        #{stuNum,jdbcType=VARCHAR},
       </if>
       <if test="labNum != null" >
         #{labNum,jdbcType=VARCHAR},
@@ -74,8 +81,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cn.sys.user.pojo.LabPre" >
     update tb_labpre
     <set >
-      <if test="id != null" >
-        id = #{id,jdbcType=INTEGER},
+      <if test="stuNum != null" >
+        stu_num = #{stuNum,jdbcType=VARCHAR},
       </if>
       <if test="labNum != null" >
         lab_num = #{labNum,jdbcType=VARCHAR},
@@ -90,15 +97,15 @@
         time = #{time,jdbcType=TIME},
       </if>
     </set>
-    where stu_num = #{stuNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cn.sys.user.pojo.LabPre" >
     update tb_labpre
-    set id = #{id,jdbcType=INTEGER},
+    set stu_num = #{stuNum,jdbcType=VARCHAR},
       lab_num = #{labNum,jdbcType=VARCHAR},
       lab_name = #{labName,jdbcType=VARCHAR},
       date = #{date,jdbcType=DATE},
       time = #{time,jdbcType=TIME}
-    where stu_num = #{stuNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

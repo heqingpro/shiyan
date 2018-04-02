@@ -2,12 +2,16 @@ package com.cn.sys.user.controller;
 import java.util.List;
 
 import javax.annotation.Resource;  
-import javax.servlet.http.HttpServletRequest;  
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;  
+import com.cn.sys.user.pojo.LabPre;
+import com.cn.sys.user.service.LabPreService;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;  
-import org.springframework.web.bind.annotation.RequestMapping;  
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.cn.sys.user.pojo.Userlogin;
 import com.cn.sys.user.pojo.Student;  
 import com.cn.sys.user.service.StudentService;  
 import com.cn.sys.user.pojo.PagingVO;
@@ -19,7 +23,10 @@ public class StudentController {
       @Resource  
 	  private StudentService studentService;  
       @Resource 
-      LabService labService; 
+      private LabService labService;
+      @Resource
+      private LabPreService labPreService;
+
       @RequestMapping("regist")
       public String regist(Student student,Model model){
     	  System.out.println("用户注册："+student.getName()+student.getPassword());
@@ -88,6 +95,26 @@ public class StudentController {
 
           return "student/showLab";
 
+      }
+      ///////查看已预约实验///////////////////////////////////
+      @RequestMapping("/showLabPre")
+      public String showLabPre(HttpSession httpSession, Model model, Integer page) throws Exception{
+          List<LabPre> list=null;
+          PagingVO pagingVO = new PagingVO();
+          pagingVO.setTotalCount(5);
+          Userlogin userlogin=(Userlogin) httpSession.getAttribute("currentUser");
+          System.out.print("当前用户名字为："+userlogin.getUsername());
+          if(null ==page || page==0){
+              pagingVO.setToPageNo(1);
+              if(null==list)
+                  list=labPreService.findByPaging(userlogin.getUsername(),1);
+          } else {
+              pagingVO.setToPageNo(page);
+              list=labPreService.findByPaging(userlogin.getUsername(),page);
+          }
+          model.addAttribute("labPreList",list);
+          model.addAttribute("pagingVo",pagingVO);
+          return "student/showLabPre";
       }
 
 }

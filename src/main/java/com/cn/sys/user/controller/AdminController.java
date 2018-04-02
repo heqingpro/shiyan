@@ -266,9 +266,11 @@ public class AdminController {
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
             list = labService.findByPaging(1);
+            System.out.print("if里面的："+list.get(0).getName());
         } else {
             pagingVO.setToPageNo(page);
             list = labService.findByPaging(page);
+            System.out.print("elseif里面的："+list.get(0).getName());
         }
 
         model.addAttribute("labList", list);
@@ -286,7 +288,7 @@ public class AdminController {
         return "admin/addLab";
     }
 
-    // 添加课程信息处理
+    // 添加实验信息处理
     @RequestMapping(value = "/addLab", method = {RequestMethod.POST})
     public String addLab(Lab lab, Model model) throws Exception {
 
