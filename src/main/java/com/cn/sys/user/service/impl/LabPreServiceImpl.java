@@ -3,7 +3,6 @@ package com.cn.sys.user.service.impl;
 import com.cn.sys.user.dao.StudentDao;
 import com.cn.sys.user.pojo.LabPre;
 import com.cn.sys.user.pojo.PagingVO;
-import com.cn.sys.user.pojo.Student;
 import com.cn.sys.user.service.LabPreService;
 import com.cn.sys.user.dao.LabPreDao;
 import org.springframework.stereotype.Service;
@@ -26,5 +25,10 @@ public class LabPreServiceImpl implements LabPreService {
         List<LabPre> list = labPreDao.findByPaging(number,pagingVO);
 
         return list;
+    }
+
+    @Override
+    public LabPre selectById(Integer id){
+        return labPreDao.selectByPrimaryKey(id);
     }
 }

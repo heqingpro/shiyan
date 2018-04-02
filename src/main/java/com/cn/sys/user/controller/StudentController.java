@@ -1,23 +1,24 @@
 package com.cn.sys.user.controller;
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;  
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.cn.sys.user.pojo.LabPre;
+import com.cn.sys.user.pojo.*;
 import com.cn.sys.user.service.LabPreService;
+import com.cn.sys.user.service.LabResultService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;  
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cn.sys.user.pojo.Userlogin;
-import com.cn.sys.user.pojo.Student;  
-import com.cn.sys.user.service.StudentService;  
-import com.cn.sys.user.pojo.PagingVO;
+import com.cn.sys.user.service.StudentService;
 import com.cn.sys.user.service.LabService;
-import com.cn.sys.user.pojo.Lab;
-@Controller  
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+@Controller
 @RequestMapping("/student")  
 public class StudentController {
       @Resource  
@@ -26,6 +27,8 @@ public class StudentController {
       private LabService labService;
       @Resource
       private LabPreService labPreService;
+      @Resource
+      private LabResultService labResultService;
 
       @RequestMapping("regist")
       public String regist(Student student,Model model){
@@ -116,5 +119,67 @@ public class StudentController {
           model.addAttribute("pagingVo",pagingVO);
           return "student/showLabPre";
       }
+      ///////跳转到提交实验结果界面
+      @RequestMapping("/postLabResult")
+      public String postLab(Integer id,Model model){
+          if (null==id)
+              return "redirect:student/showLabPre";
+          LabPre labPre=labPreService.selectById(id);
+          model.addAttribute("labPre",labPre);
+          return "student/postLabResult";
+      }
+      /////////提交实验结果//////////////////
+      @RequestMapping("/postLabResultInfo")
+      public String postLabResult(LabResult labResult, HttpSession httpSession, Model model) throws Exception{
+          labResultService.save(labResult);
+          return "redirect:/student/showLabResult";
+      }
+      ////////显示实验结果//////////////////////////////
+      @RequestMapping("/showLabResult")
+      public String showLabResult(LabResult labResult,Model model,HttpSession httpSession,Integer page) throws Exception{
+          List<LabResult> list=null;
+          PagingVO pagingVO = new PagingVO();
+          pagingVO.setTotalCount(5);
+          Userlogin userlogin=(Userlogin) httpSession.getAttribute("currentUser");
+          System.out.print("当前用户名字为："+userlogin.getUsername());
+          if(null ==page || page==0){
+              pagingVO.setToPageNo(1);
+              if(null==list)
+                  list=labResultService.findByPaging(userlogin.getUsername(),1);
+          } else {
+              pagingVO.setToPageNo(page);
+              list=labResultService.findByPaging(userlogin.getUsername(),page);
+          }
+          model.addAttribute("labResultList",list);
+          model.addAttribute("pagingVo",pagingVO);
+          return "student/showLabResult";
+      }
+      ////////////转到上传图片界面//////////////////////////////////////////////////
+      @RequestMapping("/upLoadPicture")
+      public String upLoadPicture(Integer id,Model model)throws Exception{
+          model.addAttribute("id",id);
+          return "student/upLoadPicture";
+      }
+      ////////////上传图片信息////////
+      @RequestMapping("/uploadPictureInfo")
+      public String upLoadPictureInfo(Integer id,@RequestParam MultipartFile file, HttpServletRequest request)throws Exception{
+          LabResult labResult=labResultService.getById(id);
+
+          String path="D:\\java\\nginx-1.12.2\\staticResources\\static\\image";
+          String fileName=file.getOriginalFilename();
+          File dir=new File(path,fileName);
+          if(!dir.exists()){
+              dir.mkdirs();
+          }
+          System.out.print("dir.exists()>>"+dir.exists());
+          file.transferTo(dir);
+
+          String pathSql="http://localhost:9999/static/image/"+fileName;
+          labResultService.updatePicture(labResult.getId(),pathSql);
+          return "redirect:/student/showLabResult";
+      }
+      ////////////////////////////接收图片/////////////////////
+
+
 
 }

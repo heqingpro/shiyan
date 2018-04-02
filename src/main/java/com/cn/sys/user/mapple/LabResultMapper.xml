@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.sys.user.dao.LabResultDao" >
+  <resultMap id="BaseResultMap" type="com.cn.sys.user.pojo.LabResult" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="labpre_id" property="labpreId" jdbcType="INTEGER" />
+    <result column="stu_num" property="stuNum" jdbcType="VARCHAR" />
+    <result column="lab_num" property="labNum" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="others" property="others" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, labpre_id, stu_num, lab_num, description, picture, others
+  </sql>
+  <select id="findByPaging" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_labresult
+    WHERE stu_num=#{number,jdbcType=VARCHAR}
+    limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+  </select>
+  <insert id="updatePicture">
+    UPDATE tb_labresult
+    set picture = #{picture,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=INTEGER}
+  </insert>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_labresult
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_labresult
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.sys.user.pojo.LabResult" >
+    insert into tb_labresult (id, labpre_id, stu_num, 
+      lab_num, description, picture, 
+      others)
+    values (#{id,jdbcType=INTEGER}, #{labpreId,jdbcType=INTEGER}, #{stuNum,jdbcType=VARCHAR}, 
+      #{labNum,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
+      #{others,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.sys.user.pojo.LabResult" >
+    insert into tb_labresult
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="labpreId != null" >
+        labpre_id,
+      </if>
+      <if test="stuNum != null" >
+        stu_num,
+      </if>
+      <if test="labNum != null" >
+        lab_num,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="others != null" >
+        others,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="labpreId != null" >
+        #{labpreId,jdbcType=INTEGER},
+      </if>
+      <if test="stuNum != null" >
+        #{stuNum,jdbcType=VARCHAR},
+      </if>
+      <if test="labNum != null" >
+        #{labNum,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="others != null" >
+        #{others,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.sys.user.pojo.LabResult" >
+    update tb_labresult
+    <set >
+      <if test="labpreId != null" >
+        labpre_id = #{labpreId,jdbcType=INTEGER},
+      </if>
+      <if test="stuNum != null" >
+        stu_num = #{stuNum,jdbcType=VARCHAR},
+      </if>
+      <if test="labNum != null" >
+        lab_num = #{labNum,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="others != null" >
+        others = #{others,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.sys.user.pojo.LabResult" >
+    update tb_labresult
+    set labpre_id = #{labpreId,jdbcType=INTEGER},
+      stu_num = #{stuNum,jdbcType=VARCHAR},
+      lab_num = #{labNum,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      others = #{others,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

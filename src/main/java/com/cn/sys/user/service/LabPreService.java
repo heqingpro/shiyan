@@ -8,4 +8,6 @@ public interface LabPreService {
 
     List<LabPre> findByPaging(String name,Integer page) throws Exception;
 
+    LabPre selectById(Integer id);
+
 }
