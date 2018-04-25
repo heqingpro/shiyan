@@ -1,15 +1,12 @@
 package com.cn.sys.user.controller;
 import java.util.List;
 
-import javax.annotation.Resource;  
-import javax.servlet.http.HttpServletRequest;  
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;  
 import org.springframework.ui.Model;  
 import org.springframework.web.bind.annotation.RequestMapping;  
 
-import com.cn.sys.user.pojo.Teacher;  
-import com.cn.sys.user.service.TeacherService;  
 import com.cn.sys.user.pojo.PagingVO;
 import com.cn.sys.user.service.LabService;
 import com.cn.sys.user.pojo.Lab;

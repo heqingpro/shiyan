@@ -1,5 +1,6 @@
 package com.cn.sys.user.controller;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;  
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.cn.sys.user.pojo.*;
 import com.cn.sys.user.service.LabPreService;
 import com.cn.sys.user.service.LabResultService;
+import com.cn.sys.user.utils.XmlHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;  
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -165,7 +167,21 @@ public class StudentController {
       public String upLoadPictureInfo(Integer id,@RequestParam MultipartFile file, HttpServletRequest request)throws Exception{
           LabResult labResult=labResultService.getById(id);
 
-          String path="D:\\java\\nginx-1.12.2\\staticResources\\static\\image";
+          //String path="D:\\java\\nginx-1.12.2\\staticResources\\static\\image";
+          String path="";//"D:\\javaweb\\nginx-1.12.2\\staticResources\\static\\image";
+          String xmlPath="/uploadFile.xml";
+          XmlHandler xmlHandler=new XmlHandler();
+          System.out.print("开始上传图片");
+          try {
+              xmlHandler.loadXmlFile(this.getClass().getResource(xmlPath).getFile());
+          }catch (Exception e){
+              System.out.print(e.getMessage());
+          }
+          List list=xmlHandler.getDataList("/config/uploadFile/nginx");
+          System.out.print("正确上传图片"+list.toString());
+          HashMap map=(HashMap) list.get(0);
+          path=(String) map.get("uploadPath");
+          //
           String fileName=file.getOriginalFilename();
           File dir=new File(path,fileName);
           if(!dir.exists()){
