@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <uploadFile>
+        <nginx uploadPath="D:\\javaweb\\nginx-1.12.2\\staticResources\\static\\image"/><!--"/usr/share/nginx/static/image"/>-->
+    </uploadFile>
+</config>
