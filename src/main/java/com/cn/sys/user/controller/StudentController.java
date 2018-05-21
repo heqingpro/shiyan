@@ -179,7 +179,17 @@ public class StudentController {
           return "redirect:/student/showLabResult";
       }
       ////////////////////////////接收图片/////////////////////
-
-
-
+      ///////////////////////////进行实验/////////////////////
+      @RequestMapping("/ToExperiment")
+      public String IndexToExperimennt(Model model){
+          return "/student/experiment";
+      }
+      @RequestMapping("/experiment")
+      public String experiment(Model model){
+          return "success";
+      }
+      @RequestMapping("/queue")
+      public String queue(Model model){
+          return "/student/queue";
+      }
 }

@@ -65,7 +65,7 @@
 									<td>${item.time}</td>
 									<td>
 										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/student/removeLabPre?id=${item.id}'">取消预约</button>
-										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/student/postLabResult?id=${item.id}'">提交实验结果</button>
+										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/student/ToExperiment?id=${item.id}'">进行实验</button>
 										<!--弹出框-->
 									</td>
 								</tr>

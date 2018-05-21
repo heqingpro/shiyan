@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.sys.user.dao.QueueDao" >
+  <resultMap id="BaseResultMap" type="com.cn.sys.user.pojo.Queue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="lab_num" property="labNum" jdbcType="VARCHAR" />
+    <result column="labeq_num" property="labeqNum" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="TIME" />
+    <result column="credit" property="credit" jdbcType="INTEGER" />
+    <result column="others" property="others" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, lab_num, labeq_num, state, time, credit, others
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_queue
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_queue
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.sys.user.pojo.Queue" >
+    insert into tb_queue (id, name, lab_num, 
+      labeq_num, state, time, 
+      credit, others)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{labNum,jdbcType=VARCHAR}, 
+      #{labeqNum,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{time,jdbcType=TIME}, 
+      #{credit,jdbcType=INTEGER}, #{others,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.sys.user.pojo.Queue" >
+    insert into tb_queue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="labNum != null" >
+        lab_num,
+      </if>
+      <if test="labeqNum != null" >
+        labeq_num,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="others != null" >
+        others,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="labNum != null" >
+        #{labNum,jdbcType=VARCHAR},
+      </if>
+      <if test="labeqNum != null" >
+        #{labeqNum,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIME},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=INTEGER},
+      </if>
+      <if test="others != null" >
+        #{others,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.sys.user.pojo.Queue" >
+    update tb_queue
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="labNum != null" >
+        lab_num = #{labNum,jdbcType=VARCHAR},
+      </if>
+      <if test="labeqNum != null" >
+        labeq_num = #{labeqNum,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIME},
+      </if>
+      <if test="credit != null" >
+        credit = #{credit,jdbcType=INTEGER},
+      </if>
+      <if test="others != null" >
+        others = #{others,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.sys.user.pojo.Queue" >
+    update tb_queue
+    set name = #{name,jdbcType=VARCHAR},
+      lab_num = #{labNum,jdbcType=VARCHAR},
+      labeq_num = #{labeqNum,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIME},
+      credit = #{credit,jdbcType=INTEGER},
+      others = #{others,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -17,15 +17,15 @@
         <log4j.version>1.2.17</log4j.version>  
      </properties>
      
-    <dependencies>  
-        <dependency>  
+    <dependencies>
+        <dependency>
             <groupId>junit</groupId>  
             <artifactId>junit</artifactId>  
-            <version>4.11</version>  
+            <version>4.11</version>
             <!-- 表示开发的时候引入，发布的时候不会加载此包 -->  
-            <scope>test</scope>  
+            <scope>test</scope>
         </dependency>  
-        <!-- spring核心包 -->  
+        <!-- spring核心包 -->
         <dependency>  
             <groupId>org.springframework</groupId>  
             <artifactId>spring-core</artifactId>  

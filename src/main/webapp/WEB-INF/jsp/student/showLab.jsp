@@ -64,6 +64,7 @@
 									<td>${item.outline}</td>
 									<td>
 										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/lab/labPre?id=${item.number}'">预约实验</button>
+										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/student/queue?id=${item.number}'">立即实验</button>
 										<!--弹出框-->
 									</td>
 								</tr>
